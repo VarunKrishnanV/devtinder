@@ -6,6 +6,10 @@ app.get("/", (req, res) => {
     res.send("Hello Node JS")
 })
 
+app.use("/", (req, res) => {
+    res.send("Hello Node JS - POST")
+})
+
 app.get("/about", (req, res) => {
     res.send("About")
 })
