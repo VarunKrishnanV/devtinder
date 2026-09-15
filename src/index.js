@@ -2,20 +2,27 @@ import express from 'express'
 
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Hello Node JS")
+
+// exact route match
+app.get("/abc", (req, res) => {
+    res.send("abc")
 })
 
-app.use("/", (req, res) => {
-    res.send("Hello Node JS - POST")
+// b is optional in the route path
+app.get("/ab?c", (req, res) => {
+    res.send("abc ?")
 })
 
-app.get("/about", (req, res) => {
-    res.send("About")
+// can have any number of Bs
+app.get("/ab+c", (req, res) => {
+    res.send("ab+c")
 })
-app.get("/about2", (req, res) => {
-    res.send("About2")
+
+// can have anything in between b and c
+app.get("/ab*c", (req, res) => {
+    res.send("ab*c")
 })
+
 
 app.listen("5500", () => {
     console.log("App is running");
