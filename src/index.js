@@ -1,29 +1,31 @@
-import express from 'express'
+import express from "express";
 
 const app = express();
 
-
-// exact route match
+// Exact route match
+// Matches: /abc
 app.get("/abc", (req, res) => {
-    res.send("abc")
-})
+    res.send("abc");
+});
 
-// b is optional in the route path
-app.get("/ab?c", (req, res) => {
-    res.send("abc ?")
-})
+// b is optional
+// Matches: /abc and /ac
+app.get("/a{b}c", (req, res) => {
+    res.send("abc ?");
+});
 
-// can have any number of Bs
-app.get("/ab+c", (req, res) => {
-    res.send("ab+c")
-})
+// One or more Bs
+// Matches: /abc, /abbc, /abbbc, /abbbbc, ...
+app.get(/^\/ab+c$/, (req, res) => {
+    res.send("ab+c");
+});
 
-// can have anything in between b and c
-app.get("/ab*c", (req, res) => {
-    res.send("ab*c")
-})
+// Anything between b and c
+// Matches: /abc, /abxc, /ab123c, /abhelloc, ...
+app.get(/^\/ab.*c$/, (req, res) => {
+    res.send("ab*c");
+});
 
-
-app.listen("5500", () => {
-    console.log("App is running");
-})
+app.listen(5500, () => {
+    console.log("App is running on port 5500");
+});
